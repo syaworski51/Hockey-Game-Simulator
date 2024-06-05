@@ -18,16 +18,18 @@ machine = Machine()
 # Print a blank line
 print()
 
+# Odds of a goal being scored (1-in-6750)
+odds = 6750
+
 # While the period is less than 3, or if the score is tied...
 period = 0
 while period < 3 or awayTeam.score == homeTeam.score:
     # Increment the period at the start
     period += 1
     
-    # 1-in-{odds} chance of a goal being scored
-    # Regulation: 1 / 6750
-    # Overtime: 1 / 13,500
-    odds = 6750 if period <= 3 else 13_500
+    # If overtime has started, double the odds of a goal being scored
+    if period == 4:
+        odds *= 2
 
     # Time remaining in seconds (1200 seconds = 20 minutes)
     time = 1200.0
