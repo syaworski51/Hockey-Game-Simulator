@@ -83,7 +83,7 @@ class Machine:
     
     def didHomeTeamScore(self):
         """ Did the home team score a goal?
-        Generate a random number between 0 and 100.
+        Generate a random number between 0 and 99.
         If the number is even, the home team scored a goal.
         Otherwise, the away team scored a goal.
 
@@ -91,5 +91,5 @@ class Machine:
             True if the home team scored a goal (random # is even).
             False if the away team scored a goal.
         """
-        team = randint(0, 100)
+        team = randint(0, 99)
         return team % 2 == 0
