@@ -60,7 +60,7 @@ while period < 3 or awayTeam.score == homeTeam.score:
         # Decrement the time by 0.1s
         time -= 0.1
     
-    # If in the 3rd period or eariler, OR if the score is tied
+    # If in the 3rd period or earlier, OR if the score is tied...
     if period <= 3 or awayTeam.score == homeTeam.score:
         # Print the score at the end of the period
         print(machine.printSeparation())
