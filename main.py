@@ -34,6 +34,10 @@ while period < 3 or awayTeam.score == homeTeam.score:
     # Time remaining in seconds (1200 seconds = 20 minutes)
     time = 1200.0
 
+    # Store the score of the game at the start of the current period here
+    awayScoreAtPeriodStart = awayTeam.score
+    homeScoreAtPeriodStart = homeTeam.score
+
     # Print the score at the start of the period
     print(machine.printScore(period, time, awayTeam, homeTeam))
     print(machine.printSeparation())
@@ -52,7 +56,7 @@ while period < 3 or awayTeam.score == homeTeam.score:
             # Print the new score
             print(machine.printScore(period, time, awayTeam, homeTeam))
 
-        # If in overtime and the tie is now broken, the game is now over
+        # If in overtime and the tie is now broken, the game is over
         if period > 3 and awayTeam.score != homeTeam.score:
             print('\n')
             break
@@ -62,8 +66,12 @@ while period < 3 or awayTeam.score == homeTeam.score:
     
     # If in the 3rd period or earlier, OR if the score is tied...
     if period <= 3 or awayTeam.score == homeTeam.score:
+        # If either team scored at least 1 goal this period, print hyphens for separation
+        # between the last goal and the end of the period
+        if awayScoreAtPeriodStart != awayTeam.score or homeScoreAtPeriodStart != homeTeam.score:
+            print(machine.printSeparation())
+        
         # Print the score at the end of the period
-        print(machine.printSeparation())
         print(machine.printScore(period, 0, awayTeam, homeTeam))
         print('\n')
 
@@ -72,13 +80,14 @@ scoreString = f"{awayTeam.name} {awayTeam.score}, {homeTeam.name} {homeTeam.scor
 
 # If the game ended in overtime...
 if period > 3:
-    # Append a hyphen
+    # Add a hyphen
     scoreString += " - "
     
     # If the game ended in the 1st overtime, add "OT"
     if period == 4:
         scoreString += "OT"
-    # If the game ended after the 1st overtime, add "{2, 3, 4...}OT"
+    # If the game ended after the 1st overtime, add "2OT", "3OT", "4OT"... depending on
+    # which overtime period the game ended in
     else:
         scoreString += f"{period - 3}OT"
 
