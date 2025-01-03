@@ -5,11 +5,37 @@ Simulates a hockey game played with the overtime rules used in the Stanley Cup P
 
 from classes import *
 
-print('\n')
-
 # Start by giving names to the teams
-awayTeam = Team(input("Away team: "))
-homeTeam = Team(input("Home team: "))
+awayTeam = Team()
+homeTeam = Team()
+
+while True:
+    print('\n')
+
+    awayName = input(">>> Away team: ")
+    homeName = input(">>> Home name: ")
+
+    print(f"\nConfirm matchup: {awayName} vs. {homeName}?")
+    confirm = input(">>> (Y/N): ").upper()
+
+    if confirm == 'Y':
+        awayTeam.setName(awayName)
+        homeTeam.setName(homeName)
+        break
+    elif confirm != 'N':
+        print("Invalid input. Try again.")
+
+bias = 50
+print("\n< 50: Favors away team; 50: No bias; > 50: Favors home team")
+while True:
+    bias = int(input(">>> Bias (20-80): "))
+
+    if bias < 20:
+        print("\nBias cannot be below 20. Try again.")
+    elif bias > 80:
+        print("\nBias cannot be above 80. Try again.")
+    else:
+        break
 
 # The machine is responsible for determining whether a goal was scored at any given moment
 # and printing out the score of the game
@@ -21,10 +47,10 @@ print()
 # Odds of a goal being scored (1-in-6750)
 odds = 6750
 
-# While the period is less than 3, or if the score is tied...
+# If in the 3rd period or earlier, or the score is tied...
 period = 0
 while period < 3 or awayTeam.score == homeTeam.score:
-    # Increment the period at the start
+    # Increment the period
     period += 1
     
     # If overtime has started, double the odds of a goal being scored
@@ -50,7 +76,7 @@ while period < 3 or awayTeam.score == homeTeam.score:
         # If a goal was scored...
         if goalScored:
             # Determine which team scored the goal and increment the appropriate score
-            homeTeamScored = machine.didHomeTeamScore()
+            homeTeamScored = machine.didHomeTeamScore(bias)
             homeTeam.goal() if homeTeamScored else awayTeam.goal()
 
             # Print the new score
@@ -64,7 +90,7 @@ while period < 3 or awayTeam.score == homeTeam.score:
         # Decrement the time by 0.1s
         time -= 0.1
     
-    # If in the 3rd period or earlier, OR if the score is tied...
+    # If in the 3rd period or earlier, OR if the score is still tied after an OT period...
     if period <= 3 or awayTeam.score == homeTeam.score:
         # If either team scored at least 1 goal this period, print hyphens for separation
         # between the last goal and the end of the period

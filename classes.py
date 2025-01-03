@@ -3,14 +3,17 @@ from random import *
 class Team:
     """ Represents one of the teams. """
     
-    def __init__(self, name:str):
+    def __init__(self):
         """ Create a new instance of the Team object.
 
         Parameters:
             - name (string): The name of this team.
         """
-        self.name = name
+        self.name = ""
         self.score = 0
+
+    def setName(self, newName:str):
+        self.name = newName
     
     def goal(self):
         """ When this team scores a goal, add 1 point to their score. """
@@ -81,7 +84,7 @@ class Machine:
         goal = randint(0, odds - 1)
         return goal == 1
     
-    def didHomeTeamScore(self):
+    def didHomeTeamScore(self, bias:int = 50):
         """ Did the home team score a goal?
         Generate a random number between 0 and 99.
         If the number is even, the home team scored a goal.
@@ -92,4 +95,4 @@ class Machine:
             False if the away team scored a goal.
         """
         team = randint(0, 99)
-        return team % 2 == 0
+        return team < bias
