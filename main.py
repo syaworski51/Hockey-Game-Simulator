@@ -13,7 +13,7 @@ while True:
     print('\n')
 
     awayName = input(">>> Away team: ")
-    homeName = input(">>> Home name: ")
+    homeName = input(">>> Home team: ")
 
     print(f"\nConfirm matchup: {awayName} vs. {homeName}?")
     confirm = input(">>> (Y/N): ").upper()
