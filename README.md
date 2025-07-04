@@ -24,7 +24,3 @@ This small program randomly simulates the scoring of a hockey game, played with 
 | < 50 | Favours away team |
 | 50 | Unbiased |
 | > 50 | Favours home team |
-
-> Less than 50: Favours away team.
-> 50: Unbiased.
-> Greater than 50: Favours home team.
